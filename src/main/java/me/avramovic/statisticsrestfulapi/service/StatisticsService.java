@@ -1,5 +1,6 @@
 package me.avramovic.statisticsrestfulapi.service;
 
+import lombok.RequiredArgsConstructor;
 import me.avramovic.statisticsrestfulapi.persistance.Statistics;
 import me.avramovic.statisticsrestfulapi.persistance.Transaction;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class StatisticsService {
 
     private DecimalFormat formatedValueSum = formatedValueSum = new DecimalFormat("###.##");
