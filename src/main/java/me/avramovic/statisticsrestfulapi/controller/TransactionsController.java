@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static me.avramovic.statisticsrestfulapi.service.TransactionService.TRANSACTION_LIST;
-
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/transactions")
@@ -24,7 +22,7 @@ public class TransactionsController {
 
     @DeleteMapping()
     public ResponseEntity<HttpStatus> deleteTransaction() {
-        TRANSACTION_LIST.clear();
+        transactionService.getTransactionList().clear();
 
         return ResponseEntity.ok().build();
     }

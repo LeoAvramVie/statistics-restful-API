@@ -1,16 +1,24 @@
 package me.avramovic.statisticsrestfulapi.controller;
 
+import lombok.RequiredArgsConstructor;
 import me.avramovic.statisticsrestfulapi.persistance.Statistics;
-import org.springframework.http.HttpStatus;
+import me.avramovic.statisticsrestfulapi.service.StatisticsService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController("/statistics")
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/statistics")
 public class StatisticsController {
 
-    @GetMapping
+    private final StatisticsService statisticsService;
+
+
+    @GetMapping("")
     public ResponseEntity<Statistics> getStatistics(){
-        return new ResponseEntity<Statistics>(new Statistics(), HttpStatus.OK);
+
+        return statisticsService.getStatistics();
     }
 }

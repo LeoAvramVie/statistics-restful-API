@@ -25,7 +25,7 @@ public class TransactionService {
 
             return new ResponseEntity(HttpStatus.CREATED);
         }
-
+            System.out.print(getTransactionList().size());
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
