@@ -2,7 +2,6 @@ package me.avramovic.statisticsrestfulapi.service;
 
 import me.avramovic.statisticsrestfulapi.persistance.Statistics;
 import me.avramovic.statisticsrestfulapi.persistance.Transaction;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -71,9 +70,7 @@ class StatisticsServiceTest {
         Transaction transaction2 = new Transaction(10.562, ZonedDateTime.now().minusSeconds(30));
         transactionList.add(transaction1);
         transactionList.add(transaction2);
-        when(transactionService
-                .getTransactionList())
-                .thenReturn(transactionList);
+        when(transactionService.getTransactionList()).thenReturn(transactionList);
 
         ResponseEntity<Statistics> statistics = statisticsService.getStatistics();
         assertThat(statistics.getBody().getSum()).isEqualTo(10.27);

@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,17 +16,19 @@ public class TransactionService {
 
     private final List<Transaction> transactionList = new LinkedList<>();
 
-    public ResponseEntity addTransaction(Transaction transaction){
-        if (transaction.getAmount() == null || transaction.getTimestamp() == null) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        } else if (transaction.getTimestamp().isAfter(ZonedDateTime.now().plusSeconds(60))) {
-            return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if (transaction.getTimestamp().isBefore(ZonedDateTime.now().plusSeconds(60).truncatedTo(ChronoUnit.SECONDS))) {
-            storeTransaction(transaction);
-
-            return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity addTransaction(Transaction transaction) {
+        try {
+            if (transaction.getAmount() == null || transaction.getTimestamp() == null) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            } else if (transaction.getTimestamp().isAfter(ZonedDateTime.now().plusSeconds(60))) {
+                return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
+            } else if (transaction.getTimestamp().isBefore(ZonedDateTime.now().plusSeconds(60))) {
+                storeTransaction(transaction);
+                return new ResponseEntity(HttpStatus.CREATED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-            System.out.print(getTransactionList().size());
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
